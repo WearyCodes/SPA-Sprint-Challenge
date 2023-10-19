@@ -37,14 +37,15 @@ return (
 <form onSubmit={handleSubmit}>
     <label>First Name : &nbsp;
     <input minLength={4} onChange={onChange} type="text" value={formValues.name} name="name-input"></input>
-    </label>
+    </label></form>
     <div>
-<select onChange={onChange} name = "size-dropdown">
+        <form onSubmit={handleSubmit} name="size-dropdown">
+<select onChange={onChange} name="size-dropdown">
               <option value=""> --- Select Pizza Size --- </option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
               <option value="Large">Large</option>
-          </select>
+          </select></form>
     </div>
     <div>
         <label> Pepperoni
@@ -65,6 +66,7 @@ return (
             <input type="text" name="special-text" onChange={onChange}></input>
         </label>
     </div>
+    <form onSubmit={handleSubmit}>
     <button onChange={onChange}name="order-button" type="submit">Place Order</button>
 </form>
 </span>
