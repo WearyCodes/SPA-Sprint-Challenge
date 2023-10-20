@@ -34,12 +34,12 @@ function handleSubmit(evt) {
 return (
 <span ><button onClick={() => navigate('/')}>Home</button>
 <h1>This is pizza form</h1>
-<form onSubmit={handleSubmit}>
+<form id="name-input" name="pizza-form" onSubmit={handleSubmit}>
     <label>First Name : &nbsp;
     <input minLength={4} onChange={onChange} type="text" value={formValues.name} name="name-input"></input>
     </label></form>
     <div>
-        <form onSubmit={handleSubmit} name="size-dropdown">
+        <form onSubmit={handleSubmit} id="size-dropdown "name="size-dropdown">
 <select onChange={onChange} name="size-dropdown">
               <option value=""> --- Select Pizza Size --- </option>
               <option value="Small">Small</option>
@@ -63,10 +63,10 @@ return (
     </div>
     <div>
         <label>Special Requests
-            <input type="text" name="special-text" onChange={onChange}></input>
+            <input type="text" id="special-text" name="special-text" onChange={onChange}></input>
         </label>
     </div>
-    <form onSubmit={handleSubmit}>
+    <form id="pizza-form" onSubmit={handleSubmit}>
     <button onChange={onChange}name="order-button" type="submit">Place Order</button>
 </form>
 </span>
