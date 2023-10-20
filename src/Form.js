@@ -12,7 +12,7 @@ export default function Form(){
         'mushroom': false,
         'special-text': ''
     })
-
+    const [userValid, setUserValid] = useState(false)
     const navigate = useNavigate()
     const onChange = evt => {
         evt.preventDefault()
@@ -30,15 +30,26 @@ setFormValues({... formValues, [name]: updatedValue})
         'name-input': yup.string().required().min(2)
       })
 
-function handleSubmit(evt) {
+const handleSubmit = async (evt) => {
+
         evt.preventDefault();
+
         console.log(formValues);
+
       }
+
+      useEffect(async () => {
+    const isValid = await userSchema.isValid(formValues)
+setUserValid(isValid)
+
+      }, [formValues])
+
 
 return (
 <span ><button onClick={() => navigate('/')}>Home</button>
 <h1>This is pizza form</h1>
 <form name="pizza-form" onSubmit={handleSubmit}>
+    {!userValid && <div><h1 styles={'color: red'}>name must be at least 2 characters</h1></div>}
     <label>First Name : &nbsp;
     <input minLength={2} onChange={onChange} type="text" value={formValues.name} id="name-input" name="name-input"></input>
     </label></form>
@@ -71,8 +82,9 @@ return (
         </label>
     </div>
     <form id="pizza-form" onSubmit={handleSubmit}>
-    <button onChange={onChange}name="order-button" id="order-button" type="submit">Place Order</button>
+    <button disabled={!userValid} onChange={onChange}name="order-button" id="order-button" type="submit">Place Order</button>
 </form>
+
 </span>
 )
 }
