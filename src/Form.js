@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
 
 export default function Form(){
         const [formValues, setFormValues] = useState({
@@ -11,7 +12,6 @@ export default function Form(){
         'mushroom': false,
         'special-text': ''
     })
-
 
     const navigate = useNavigate()
     const onChange = evt => {
@@ -26,6 +26,10 @@ export default function Form(){
 setFormValues({... formValues, [name]: updatedValue})
       }
 
+      const userSchema = yup.object().shape({
+        'name-input': yup.string().required().min(2)
+      })
+
 function handleSubmit(evt) {
         evt.preventDefault();
         console.log(formValues);
@@ -34,13 +38,13 @@ function handleSubmit(evt) {
 return (
 <span ><button onClick={() => navigate('/')}>Home</button>
 <h1>This is pizza form</h1>
-<form id="name-input" name="pizza-form" onSubmit={handleSubmit}>
+<form name="pizza-form" onSubmit={handleSubmit}>
     <label>First Name : &nbsp;
-    <input minLength={4} onChange={onChange} type="text" value={formValues.name} name="name-input"></input>
+    <input minLength={2} onChange={onChange} type="text" value={formValues.name} id="name-input" name="name-input"></input>
     </label></form>
     <div>
         <form onSubmit={handleSubmit} id="size-dropdown "name="size-dropdown">
-<select onChange={onChange} name="size-dropdown">
+<select onChange={onChange} id="size-dropdown" name="size-dropdown">
               <option value=""> --- Select Pizza Size --- </option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
@@ -49,7 +53,7 @@ return (
     </div>
     <div>
         <label> Pepperoni
-    <input onChange={onChange} checked={formValues.pepperoni} type="checkbox" name="pepperoni"></input>
+    <input onChange={onChange} checked={formValues.pepperoni} type="checkbox" id="pepperoni" name="pepperoni"></input>
     </label>
     <label> Sausage
     <input onChange={onChange} checked={formValues.sausage} type="checkbox" name="sausage"></input>
@@ -67,7 +71,7 @@ return (
         </label>
     </div>
     <form id="pizza-form" onSubmit={handleSubmit}>
-    <button onChange={onChange}name="order-button" type="submit">Place Order</button>
+    <button onChange={onChange}name="order-button" id="order-button" type="submit">Place Order</button>
 </form>
 </span>
 )
